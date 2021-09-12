@@ -4,13 +4,13 @@ import Truck, { TruckAttributes, TruckInstance } from "../db/models/Truck";
 
 class TruckService {
   static async listTruckLocations(
-    truck: TruckAttributes,
+    truckId: string,
     totalToDisplay: number
     ): Promise<LocationAttributes[]> {
       try {
         const locationInstances: LocationInstance[] = await Location.findAll({
           where: {
-            [Op.or]: [{ truck_id: truck.id }]
+            [Op.or]: [{ truck_id: truckId }]
           },
           order: [
             ['created_at', 'DESC']

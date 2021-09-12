@@ -59,7 +59,7 @@ describe('test truck management services', () => {
     const trucks: TruckAttributes[] = await Truck.findAll();
     expect(trucks.length).to.be.greaterThan(0);
 
-    const locations: LocationAttributes[] = await TruckService.listTruckLocations(trucks[0], 2);
+    const locations: LocationAttributes[] = await TruckService.listTruckLocations(trucks[0].id, 2);
     expect(locations.length).to.be.equal(2);
   });
 });

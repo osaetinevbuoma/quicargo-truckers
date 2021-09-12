@@ -37,8 +37,7 @@ module.exports = {
           model: 'trucks',
           key: 'id',
         },
-        onDelete: 'cascade',
-        allowNull: false
+        onDelete: 'cascade'
       },
       created_at: Sequelize.DataTypes.DATE,
       updated_at: Sequelize.DataTypes.DATE,
