@@ -3,3 +3,6 @@ typings/
 bin/
 package-lock.json
 yarn.lock
+logs/
+yarn-error.log
+.env
