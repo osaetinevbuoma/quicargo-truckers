@@ -14,7 +14,8 @@ export interface LocationAttributes {
 
 interface LocationCreationAttribute extends Optional<LocationAttributes, 'id'> {}
 
-export interface LocationInstance extends Model<LocationAttributes, LocationCreationAttribute> {}
+export interface LocationInstance extends Model<LocationAttributes, LocationCreationAttribute>, 
+  LocationAttributes {}
 
 const Location = db.getInstance().define<LocationInstance>('Location', {
   id: {
