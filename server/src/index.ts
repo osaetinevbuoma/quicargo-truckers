@@ -1,8 +1,8 @@
 import * as compression from 'compression';
+import * as cors from 'cors';
 import * as express from 'express';
 import * as methodOverride from 'method-override';
 import * as winston from 'winston';
-import cors from 'cors';
 import * as controller from './controller';
 import { SERVER_PORT, SERVER_HOST } from './env';
 import db from './db/db';
@@ -36,13 +36,13 @@ const dbConnection = async () => {
 }
 dbConnection();
 
-// app.use(cors());
 app.use(compression());
 app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
 app.use(methodOverride());
+app.use(cors());
 
 app.use('/api', controller.default);
 

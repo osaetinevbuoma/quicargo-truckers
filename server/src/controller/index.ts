@@ -62,6 +62,16 @@ router.post('/location', async (req: express.Request, res: express.Response) => 
   }
 });
 
+router.get('/truck/:truckId/locations', async (req: express.Request, res: express.Response) => {
+  try {
+    const locations: LocationAttributes[] = await TruckService
+      .listAllTruckLocations(req.params.truckId);
+    return res.status(200).send(locations);
+  } catch (error) {
+    return res.status(400).send(error);
+  }
+});
+
 router.get('/truck/:truckId/locations/:totalToDisplay', async (req: express.Request, res: express.Response) => {
   try {
     const locations: LocationAttributes[] = await TruckService.listTruckLocations(

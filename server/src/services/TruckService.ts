@@ -3,6 +3,23 @@ import Location, { LocationAttributes, LocationInstance } from "../db/models/Loc
 import Truck, { TruckAttributes, TruckInstance } from "../db/models/Truck";
 
 class TruckService {
+  static async listAllTruckLocations(truckId: string): Promise<LocationAttributes[]> {
+    try {
+      const locationInstances: LocationInstance[] = await Location.findAll({
+        where: {
+          [Op.or]: [{ truck_id: truckId }]
+        }
+      });
+
+      const locations: LocationAttributes[] = [];
+      locationInstances.every(location => locations.push(location.toJSON() as LocationAttributes));
+
+      return locations as LocationAttributes[];
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   static async deleteTruck(id: string): Promise<void> {
     try {
       await Truck.destroy({

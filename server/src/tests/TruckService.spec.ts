@@ -59,13 +59,31 @@ describe('test truck management services', () => {
       location_datetime: new Date(),
     };
 
+    const data3: LocationAttributes = {
+      latitude: 13.2323,
+      longitude: 5.9324,
+      location_datetime: new Date(),
+    };
+
+    const data4: LocationAttributes = {
+      latitude: 11.2323,
+      longitude: 10.9324,
+      location_datetime: new Date(),
+    };
+
     const location1: LocationAttributes = await TruckService.createTruckLocation(data1, truck);
     const location2: LocationAttributes = await TruckService.createTruckLocation(data2, truck);
+    const location3: LocationAttributes = await TruckService.createTruckLocation(data3, truck);
+    const location4: LocationAttributes = await TruckService.createTruckLocation(data4, truck);
 
     expect(location1.latitude).to.equal(data1.latitude);
     expect(location1.longitude).to.equal(data1.longitude);
     expect(location2.latitude).to.equal(data2.latitude);
     expect(location2.longitude).to.equal(data2.longitude);
+    expect(location3.latitude).to.equal(data3.latitude);
+    expect(location3.longitude).to.equal(data3.longitude);
+    expect(location4.latitude).to.equal(data4.latitude);
+    expect(location4.longitude).to.equal(data4.longitude);
   });
 
   it('update a truck location', async () => {
@@ -89,6 +107,14 @@ describe('test truck management services', () => {
   it('list trucks', async () => {
     const trucks: TruckAttributes[] = await TruckService.listTrucks();
     expect(trucks.length).to.be.greaterThan(0);
+  });
+
+  it('list all truck locations', async () => {
+    const trucks: TruckAttributes[] = await Truck.findAll();
+    expect(trucks.length).to.be.greaterThan(0);
+
+    const locations: LocationAttributes[] = await TruckService.listAllTruckLocations(trucks[0].id);
+    expect(locations.length).to.be.equal(4);
   });
 
   it('list truck recent locations', async () => {
